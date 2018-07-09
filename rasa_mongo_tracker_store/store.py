@@ -6,12 +6,12 @@ class MongoTrackerStore(TrackerStore):
     """
     MongoTrackerStore stores rasa conversation trackers using MongoDB
     """
-    def __init__(self, domain, collection_name='rasa_tracker_store', host=None,
-                 port=None, tz_aware=None, connect=None):
+    def __init__(self, domain, database_name='rasa', collection='tracker_store',
+                 host=None, port=None, tz_aware=None, connect=None):
 
         m_client = MongoClient(host=host, port=port,
                                tz_aware=tz_aware, connect=connect)
-        self.collection = m_client[collection_name]
+        self.collection = m_client[database_name][collection]
         super(MongoTrackerStore, self).__init__(domain)
 
     def save(self, tracker):
@@ -24,7 +24,7 @@ class MongoTrackerStore(TrackerStore):
     def retrieve(self, sender_id):
         stored = self.collection.find_one({'sender_id': sender_id})
         if stored is not None:
-            return self.deserialise_tracker(sender_id, stored['tracker'])
+            return self.deserialise_tracker(sender_id, stored.get('tracker', None))
         return None
 
     def keys(self):
