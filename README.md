@@ -1,4 +1,5 @@
 # rasa-mongo-tracker-store
+[![Build Status](https://travis-ci.org/m90/rasa-mongo-tracker-store.svg?branch=master)](https://travis-ci.org/m90/rasa-mongo-tracker-store)
 > `TrackerStore` for rasa_core connecting to MongoDB
 
 ## Usage

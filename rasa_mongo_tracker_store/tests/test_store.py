@@ -2,19 +2,25 @@ import unittest
 from unittest.mock import patch
 
 from rasa_core.trackers import DialogueStateTracker
+from rasa_core.domain import TemplateDomain
 from mongomock import MongoClient as MockMongoClient
 
 from rasa_mongo_tracker_store.store import MongoTrackerStore
 
 class TestStore(unittest.TestCase):
-    @patch('rasa_mongo_tracker_store.store.MongoClient')
-    def test_store(self, ClientConstructor):
-        ClientConstructor = MockMongoClient
+    @patch('rasa_mongo_tracker_store.store.MongoClient', MockMongoClient)
+    def test_store(self):
+        domain = TemplateDomain.load("rasa_mongo_tracker_store/tests/test_domain.yml")
 
         store = MongoTrackerStore(
-            None, host='localhost', port=27017)
+            domain, host='localhost', port=27017)
         assert store is not None
 
-        tracker = DialogueStateTracker('some-id', [])
+        original = DialogueStateTracker('some-id', [])
+        store.save(original)
 
-        store.save(tracker)
+        result = store.retrieve('some-id')
+        assert result == original
+
+        unknown = store.retrieve('unknown-id')
+        assert unknown is None
