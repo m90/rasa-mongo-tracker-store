@@ -2,6 +2,14 @@
 [![Build Status](https://travis-ci.org/m90/rasa-mongo-tracker-store.svg?branch=master)](https://travis-ci.org/m90/rasa-mongo-tracker-store)
 > `TrackerStore` for rasa_core connecting to MongoDB
 
+## Installation
+
+Install the package using pip:
+
+```sh
+pip install python_mongo_tracker_store
+```
+
 ## Usage
 
 `MongoTrackerStore` can be used when loading or instantiating an Agent:
