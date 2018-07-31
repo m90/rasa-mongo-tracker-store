@@ -1,7 +1,12 @@
+test:
+	@pytest
+
 package: setup.py
-	@python3 setup.py sdist bdist_wheel
+	@rm -rf dist/
+	@python setup.py sdist bdist_wheel
 
 publish: package
 	@twine upload dist/*
 
-.PHONY: publish
+format:
+	@black ./rasa_mongo_tracker_store/.
