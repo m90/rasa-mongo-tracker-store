@@ -1,3 +1,9 @@
+## Deprecation notice
+
+Starting with `rasa_core` 0.11, a `MongoTrackerStore` is included in the core package, i.e. there is no need to use this package anymore in case you are running an up-to-date version of `rasa_core`.
+
+---
+
 # rasa-mongo-tracker-store
 [![Build Status](https://travis-ci.org/m90/rasa-mongo-tracker-store.svg?branch=master)](https://travis-ci.org/m90/rasa-mongo-tracker-store)
 > `TrackerStore` for rasa_core connecting to MongoDB
